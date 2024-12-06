@@ -10,7 +10,7 @@ main proc
     mov ax, @data;
     mov ds, ax
     
-    mov cx, 1
+    mov cx, 0
     
 hello:
     mov ah, 9
@@ -18,7 +18,7 @@ hello:
     int 21h
     inc cx      
     
-    cmp cx, 6
+    cmp cx, 5
     je bye
     jne hello
     
