@@ -9,6 +9,8 @@ C DB "Output: $"
 ;D DW -2  works 
 D DW ?         
 E DB ?,?,?
+F EQU 35h  
+G EQU "testing $"
 
 .CODE
 MAIN PROC
@@ -46,8 +48,9 @@ LEA DX, C         ;tells for output 1
 INT 21H 
 
 MOV AH, 2        ;output  1
-;MOV DX, 'A'       
-MOV DX, D
+;MOV DX, 'A'     ;works  
+;MOV DL, F        ;works   
+;MOV DX, D
 INT 21H      
   
   MOV AH, 4CH

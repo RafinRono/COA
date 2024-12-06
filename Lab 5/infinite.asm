@@ -6,6 +6,8 @@ msg db 0ah, 0dh, "Hello, world! $"
                             
 .code
 main proc
+mov ax, @data
+mov ds, ax
 start:
     mov ah, 9;
     lea dx, msg;
