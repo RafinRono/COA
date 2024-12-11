@@ -26,9 +26,10 @@ main proc
     je check_bx
         
     check_bx:  
-        cmp bx, cx  
+        cmp bx, cx   
+        je end
         jg move_1_to_dx
-        jl move_0_to_dx
+        jl move_0_to_dx    
         
     move_0_to_dx:
         mov ah, 2  
