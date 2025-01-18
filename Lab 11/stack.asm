@@ -1,4 +1,4 @@
-.model SMALL                                                                                                                                                       .model SMALL                ; means a small model
+.model SMALL                                                                                                                                                       
 .STACK 100H                 
 
 .DATA                       
