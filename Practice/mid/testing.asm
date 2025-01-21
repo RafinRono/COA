@@ -50,7 +50,7 @@ INT 21H
 MOV AH, 2        ;output  1
 ;MOV DX, 'A'     ;works  
 ;MOV DL, F        ;works   
-MOV DX, D
+;MOV DX, D
 INT 21H      
   
   MOV AH, 4CH
