@@ -2,27 +2,23 @@
 .STACK 100H                                        
 
 .DATA                                
-                           
+                        
 .code
 main proc
     mov ax, @data;                                 
     mov ds, ax                                     
                
-    mov al, -1
-                            
-    cmp al, 0                                                                         
-    jl lesser
-    jge greater
-        
-    lesser:
-        mov ah, 00FFh                                   
-        jmp end
-        
-    greater:  
-        mov ah, 0h
-        jmp end
+    mov cx, 256
     
-end:        
+    mov ah, 2      
+    mov bx, 0
+    
+top:  
+    mov dx, bx
+    int 21h   
+    inc bx
+    loop top
+
 mov ah, 4ch                                     
 int 21h
 

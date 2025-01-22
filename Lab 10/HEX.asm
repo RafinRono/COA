@@ -1,64 +1,58 @@
-.model SMALL                                                                                                                                                       .model SMALL                ; means a small model
-.STACK 100H                 
-
-.DATA                       
-INPUT DB "INPUT: $"
-OUTPUT DB  0AH, 0DH,"OUTPUT $"
-
-.CODE
-MAIN PROC
-    MOV AX, @DATA
-    MOV DS, AX    
-    MOV AH, 9
-    LEA DX, INPUT
-    INT 21H
-    
-    XOR BX, BX
-    MOV CL, 4
-    MOV AH, 1
-    
-    FOR:
-    INT 21H
-    CMP AL, 0DH
-    JE OUTPUT_
-    CMP AL, 41H
-    JGE LETTER
-    AND AL, 0FH
-    JMP SHIFT
-    
-    LETTER:
-    SUB AL, 37H
-    
-    SHIFT:
-    SHL BX, 4
-    OR BL, AL
-    JMP FOR
-    
-    OUTPUT_:
-    MOV AH, 9
-    LEA DX, OUTPUT
-    INT 21H
-    MOV CX, 4
-    MOV AH, 2
-    
-    AGAIN:
-    MOV DL, BH
-    SHR DL, 4
-    ROL BX, 4
-    
-    CMP DL, 10
-    JGE LETTEROUT
-    ADD DL, 30h
-    INT 21H
-    JMP EXIT
-    
-    LETTEROUT:
-    ADD DL, 37h
-    INT 21H
-    
-    EXIT:
-    LOOP AGAIN
-    MOV AH, 4CH 
+.model small
+.stack 100h
+.data
+.code
+ 
+main proc
+    mov ax, @data
+    mov ds, ax
+    xor bx, bx; mov bx, 0 and bx, 0
+    mov cl, 4
+    mov ah, 1
+    input:
     int 21h
-    MAIN ENDP
-END MAIN
+    cmp al, 0Dh                                                  
+
+ 
+    je output                                                    
+    cmp al, 41h
+    jge letter
+    and al, 0Fh; sub al, 30h
+    jmp shift
+    letter:                                                       
+    sub al, 37h; 41h-37h = 10 (A)
+    shift:
+    shl bx, cl
+    or bl, al
+    jmp input
+              ;input
+
+    output: 
+    mov ah,2
+    mov dl,10
+    int 21h
+    mov dl,13
+    int 21h
+    mov cx, 4
+    mov ah, 2
+
+    again:
+    mov dl,bh
+    shr dl,4
+    rol bx,4
+    cmp dl,10
+    jge letterout
+    add dl,30h
+    int 21h
+    jmp exit
+    letterout:
+    add dl,37h     ; 37h/55
+    int 21h
+    jmp exit
+    exit:
+    loop again
+
+    mov ah, 4ch
+    int 21h
+    main endp
+end main
